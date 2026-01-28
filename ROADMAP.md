@@ -7,11 +7,11 @@
 ## Phase 1: Core Features (Semaine 1-2)
 
 ### Feed & Posts
-- [ ] Affichage du feed avec posts
+- [x] Affichage du feed avec posts
 - [ ] Création de posts (texte + image)
-- [ ] Likes et compteurs
-- [ ] Commentaires
-- [ ] Infinite scroll / pagination
+- [x] Likes et compteurs
+- [x] Commentaires
+- [x] Infinite scroll / pagination
 
 ### Profile
 - [ ] Affichage profil utilisateur
