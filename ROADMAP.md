@@ -20,9 +20,9 @@
 - [ ] Statistiques utilisateur
 
 ### Fasting Tracker
-- [ ] Timer de jeûne (start/stop)
-- [ ] Historique des jeûnes
-- [ ] Graphiques de progression
+- [x] Timer de jeûne (start/stop)
+- [x] Historique des jeûnes
+- [x] Graphiques de progression
 - [ ] Notifications de rappel
 
 ---
