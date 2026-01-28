@@ -14,10 +14,10 @@
 - [ ] Infinite scroll / pagination
 
 ### Profile
-- [ ] Affichage profil utilisateur
-- [ ] Edit profile (nom, bio, photo)
-- [ ] Upload photo de profil
-- [ ] Statistiques utilisateur
+- [x] Affichage profil utilisateur
+- [x] Edit profile (nom, bio, photo)
+- [x] Upload photo de profil
+- [x] Statistiques utilisateur
 
 ### Fasting Tracker
 - [ ] Timer de jeûne (start/stop)
