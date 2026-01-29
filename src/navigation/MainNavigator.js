@@ -5,6 +5,7 @@ import FeedScreen from '../screens/Feed/FeedScreen'
 import CreatePostScreen from '../screens/Feed/CreatePostScreen'
 import PostDetailScreen from '../screens/Feed/PostDetailScreen'
 import ProfileScreen from '../screens/Profile/ProfileScreen'
+import EditProfileScreen from '../screens/Profile/EditProfileScreen'
 import FastingScreen from '../screens/Fasting/FastingScreen'
 import FastingHistoryScreen from '../screens/Fasting/FastingHistoryScreen'
 import { theme } from '../utils/theme'
@@ -13,6 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator()
 const FastingStack = createStackNavigator()
 const FeedStack = createStackNavigator()
+const ProfileStack = createStackNavigator()
 
 function FeedNavigator() {
     return (
@@ -44,6 +46,15 @@ function FastingNavigator() {
     )
 }
 
+function ProfileNavigator() {
+    return (
+        <ProfileStack.Navigator>
+            <ProfileStack.Screen name="ProfileMain" component={ProfileScreen} options={{ title: 'Profil' }} />
+            <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Modifier le profil' }} />
+        </ProfileStack.Navigator>
+    )
+}
+
 export default function MainNavigator() {
   return (
     <Tab.Navigator
@@ -67,7 +78,7 @@ export default function MainNavigator() {
     >
       <Tab.Screen name="Feed" component={FeedNavigator} options={{ title: 'Accueil', headerShown: false }} />
       <Tab.Screen name="Fasting" component={FastingNavigator} options={{ title: 'Jeûne', headerShown: false }} />
-      <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profil' }} />
+      <Tab.Screen name="Profile" component={ProfileNavigator} options={{ title: 'Profil', headerShown: false }} />
     </Tab.Navigator>
   )
 }
