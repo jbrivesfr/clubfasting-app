@@ -364,3 +364,31 @@ Changes sont tous dans Supabase:
 
 *Created: 2026-01-28*
 *Ready for Jules to implement*
+
+---
+
+## Update: Post Images Bucket
+
+### Create Bucket: `post-images`
+
+Please create a new public storage bucket named `post-images` (separate from `images` or as a new one) with the following configuration:
+
+- **Public Access**: Enabled
+- **File Size Limit**: 5MB
+- **Allowed Content Types**: `image/jpeg`, `image/png`, `image/webp`
+
+### RLS Policies for `post-images`
+
+**Path Structure**: `{userId}/{timestamp}.{ext}`
+
+Example Policy for INSERT:
+```sql
+-- Allow authenticated users to upload files to a folder named after their user ID
+(bucket_id = 'post-images' AND auth.uid()::text = (storage.foldername(name))[1])
+```
+
+Example Policy for SELECT:
+```sql
+-- Allow public read access
+bucket_id = 'post-images'
+```

@@ -142,3 +142,53 @@ export const hasUserLiked = async (postId, userId) => {
     return false;
   }
 };
+
+/**
+ * Create a new post
+ * @param {string} userId - Author ID
+ * @param {string} text - Post text
+ * @param {object} imageFile - Image file object (uri, type, name) or null
+ * @returns {Promise<object>} - Created post
+ */
+export const createPost = async (userId, text, imageFile = null) => {
+  // 1. Upload image to Supabase Storage if provided
+  let imageUrl = null;
+  if (imageFile) {
+    const ext = imageFile.name ? imageFile.name.split('.').pop() : 'jpg';
+    const fileName = `${userId}/${Date.now()}.${ext}`;
+
+    // Use fetch to get blob for robust React Native upload
+    const response = await fetch(imageFile.uri);
+    const blob = await response.blob();
+
+    const { data, error } = await supabase.storage
+      .from('post-images')
+      .upload(fileName, blob, {
+        contentType: imageFile.type || 'image/jpeg',
+      });
+
+    if (error) throw error;
+
+    // Get public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from('post-images')
+      .getPublicUrl(fileName);
+
+    imageUrl = publicUrl;
+  }
+
+  // 2. Insert post into comments table
+  const { data: post, error } = await supabase
+    .from('comments')
+    .insert({
+      user_id: userId,
+      text: text,
+      image: imageUrl,
+      likes: 0
+    })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return post;
+};
