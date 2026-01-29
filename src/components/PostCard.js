@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Text, Avatar, IconButton } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { theme } from '../utils/theme';
 
 const PostCard = ({ post, onToggleLike }) => {
+  const navigation = useNavigation();
   const {
     text,
     image,
@@ -13,6 +15,7 @@ const PostCard = ({ post, onToggleLike }) => {
     user_name,
     avatar_url,
     likes_count,
+    comments_count,
     is_liked
   } = post;
 
@@ -25,6 +28,10 @@ const PostCard = ({ post, onToggleLike }) => {
     setLiked(is_liked);
     setCount(likes_count);
   }, [is_liked, likes_count]);
+
+  const handlePress = () => {
+    navigation.navigate('PostDetail', { postId: post.id });
+  };
 
   const handleLike = () => {
     const newLiked = !liked;
@@ -42,7 +49,7 @@ const PostCard = ({ post, onToggleLike }) => {
     : '';
 
   return (
-    <Card style={styles.card}>
+    <Card style={styles.card} onPress={handlePress}>
       <View style={styles.header}>
         {avatar_url ? (
           <Avatar.Image size={40} source={{ uri: avatar_url }} />
@@ -78,6 +85,17 @@ const PostCard = ({ post, onToggleLike }) => {
           />
           <Text style={styles.likeCount}>{count} J'aime</Text>
         </View>
+        <TouchableOpacity style={styles.commentContainer} onPress={handlePress}>
+          <IconButton
+            icon="comment-outline"
+            iconColor={theme.colors.textSecondary}
+            size={24}
+            style={{ margin: 0 }}
+          />
+          <Text style={styles.commentCount}>
+            {comments_count || 0} commentaires
+          </Text>
+        </TouchableOpacity>
       </Card.Actions>
     </Card>
   );
@@ -135,10 +153,19 @@ const styles = StyleSheet.create({
   likeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: 20,
   },
   likeCount: {
     color: theme.colors.textSecondary,
     marginLeft: -5,
+  },
+  commentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  commentCount: {
+    color: theme.colors.textSecondary,
+    marginLeft: 0,
   }
 });
 
