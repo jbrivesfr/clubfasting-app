@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, FAB } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuth } from '../../contexts/AuthContext';
 import { fetchPosts, toggleLike } from '../../services/feed';
 import PostCard from '../../components/PostCard';
 import { theme } from '../../utils/theme';
 
-export default function FeedScreen() {
+export default function FeedScreen({ navigation, route }) {
   const { user } = useAuth();
   const insets = useSafeAreaInsets();
 
@@ -50,6 +50,13 @@ export default function FeedScreen() {
   useEffect(() => {
     loadPosts(0, true);
   }, [user]); // Reload if user changes (e.g. login/logout)
+
+  useEffect(() => {
+    if (route.params?.refresh) {
+      loadPosts(0, true);
+      navigation.setParams({ refresh: null });
+    }
+  }, [route.params?.refresh]);
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -150,6 +157,13 @@ export default function FeedScreen() {
         ListFooterComponent={renderFooter}
         ListEmptyComponent={renderEmpty}
       />
+      <FAB
+        style={styles.fab}
+        icon="plus"
+        onPress={() => navigation.navigate('CreatePost')}
+        color="white"
+        accessibilityLabel="Nouveau post"
+      />
     </View>
   );
 }
@@ -158,6 +172,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: theme.colors.primary,
   },
   loadingContainer: {
     flex: 1,
