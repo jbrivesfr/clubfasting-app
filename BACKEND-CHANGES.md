@@ -392,3 +392,25 @@ Example Policy for SELECT:
 -- Allow public read access
 bucket_id = 'post-images'
 ```
+
+## Update: Subscriptions Table Schema
+
+### Create Table: `subscriptions`
+
+```sql
+CREATE TABLE subscriptions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  platform TEXT NOT NULL, -- 'ios' or 'android'
+  product_id TEXT NOT NULL,
+  transaction_id TEXT UNIQUE NOT NULL,
+  receipt_data TEXT,
+  expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_subscriptions_user_id ON subscriptions(user_id);
+CREATE INDEX idx_subscriptions_expires_at ON subscriptions(expires_at);
+```

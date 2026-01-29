@@ -8,6 +8,7 @@ import ProfileScreen from '../screens/Profile/ProfileScreen'
 import EditProfileScreen from '../screens/Profile/EditProfileScreen'
 import FastingScreen from '../screens/Fasting/FastingScreen'
 import FastingHistoryScreen from '../screens/Fasting/FastingHistoryScreen'
+import PaywallScreen from '../screens/Subscription/PaywallScreen';
 import { theme } from '../utils/theme'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -15,6 +16,7 @@ const Tab = createBottomTabNavigator()
 const FastingStack = createStackNavigator()
 const FeedStack = createStackNavigator()
 const ProfileStack = createStackNavigator()
+const RootStack = createStackNavigator()
 
 function FeedNavigator() {
     return (
@@ -55,7 +57,7 @@ function ProfileNavigator() {
     )
 }
 
-export default function MainNavigator() {
+function MainTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -81,4 +83,21 @@ export default function MainNavigator() {
       <Tab.Screen name="Profile" component={ProfileNavigator} options={{ title: 'Profil', headerShown: false }} />
     </Tab.Navigator>
   )
+}
+
+export default function MainNavigator() {
+    return (
+        <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            <RootStack.Screen name="MainTabs" component={MainTabs} />
+            <RootStack.Screen
+                name="Paywall"
+                component={PaywallScreen}
+                options={{
+                    presentation: 'modal',
+                    headerShown: true,
+                    title: 'Premium'
+                }}
+            />
+        </RootStack.Navigator>
+    )
 }
