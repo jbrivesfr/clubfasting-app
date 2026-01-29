@@ -1,0 +1,21 @@
+Starting project at /app
+Starting Metro Bundler
+The following packages should be updated for best compatibility with the installed expo version:
+  react-native-screens@4.20.0 - expected version: ~4.16.0
+  react-native-svg@15.15.1 - expected version: 15.12.1
+Your project may not work correctly until you install the expected versions of the packages.
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+Web ./index.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web ./index.js ▓▓▓▓▓▓▓▓░░░░░░░░ 55.8% ( 92/164)
+Web ./index.js ▓▓▓▓▓▓▓▓░░░░░░░░ 55.8% (326/502)
+Web ./index.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 57.8% ( 703/1327)
+Web ./index.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 63.2% (1316/1655)
+Web Bundled 16738ms index.js (1761 modules)
+ LOG  [web] Logs will appear in the browser console
+Web ./index.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 78ms index.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web ./index.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 124ms index.js (1 module)
+ LOG  [web] Logs will appear in the browser console
