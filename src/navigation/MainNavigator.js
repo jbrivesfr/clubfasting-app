@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import FeedScreen from '../screens/Feed/FeedScreen'
 import CreatePostScreen from '../screens/Feed/CreatePostScreen'
+import PostDetailScreen from '../screens/Feed/PostDetailScreen'
 import ProfileScreen from '../screens/Profile/ProfileScreen'
 import FastingScreen from '../screens/Fasting/FastingScreen'
 import FastingHistoryScreen from '../screens/Fasting/FastingHistoryScreen'
@@ -24,6 +25,11 @@ function FeedNavigator() {
                     title: 'Nouveau post',
                     presentation: 'modal',
                 }}
+            />
+            <FeedStack.Screen
+                name="PostDetail"
+                component={PostDetailScreen}
+                options={{ title: 'Post' }}
             />
         </FeedStack.Navigator>
     )
